@@ -7,8 +7,8 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       match: [
-        /^[a-zA-Z0-9]+$/,
-        "Username must contain only letters and numbers",
+        /^[a-zA-Z0-9_]$/, 
+        "Username must contain only letters, numbers and underscores.",
       ],
     },
     email: {
