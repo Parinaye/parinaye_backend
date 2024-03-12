@@ -13,8 +13,10 @@ dotenv.config();
 export const signUp = async (req, res, next) => {
   console.log(req.body);
   const { username, email, password } = req.body;
-  const hashedPassword = bcryptjs.hashSync(password, parseInt(process.env.BYCRYPT_SALT));
-
+  const hashedPassword = bcryptjs.hashSync(
+    password,
+    parseInt(process.env.BYCRYPT_SALT)
+  );
 
   try {
     const newUser = new User({ username, email, password: hashedPassword });
@@ -52,7 +54,11 @@ export const signIn = async (req, res, next) => {
     });
     const { password: passwordFromUser, ...restOfUser } = validUser._doc;
     res
-      .cookie("access_token", token, { httpOnly: true, expiresIn: 3600 })
+      .cookie("access_token", token, {
+        httpOnly: true,
+        expiresIn: 3600,
+        secure: process.env.NODE_ENV === "production",
+      })
       .status(200)
       .json({ ...restOfUser });
   } catch (error) {
@@ -71,7 +77,11 @@ export const signInGoogle = async (req, res, next) => {
       });
       const { password: passwordFromUser, ...restOfUser } = validUser._doc;
       res
-        .cookie("access_token", token, { httpOnly: true, expiresIn: 3600 })
+        .cookie("access_token", token, {
+          httpOnly: true,
+          expiresIn: 3600,
+          secure: process.env.NODE_ENV === "production",
+        })
         .status(200)
         .json({ ...restOfUser });
     } else {
@@ -103,7 +113,11 @@ export const signInGoogle = async (req, res, next) => {
       });
       const { password: passwordFromUser, ...restOfUser } = newUser._doc;
       res
-        .cookie("access_token", token, { httpOnly: true, expiresIn: 3600 })
+        .cookie("access_token", token, {
+          httpOnly: true,
+          expiresIn: 3600,
+          secure: process.env.NODE_ENV === "production",
+        })
         .status(200)
         .json({ ...restOfUser });
     }
@@ -186,6 +200,7 @@ export const sendResetPasswordOTP = async (req, res, next) => {
             .cookie("reset_password_token", reset_password_token, {
               httpOnly: true,
               expiresIn: 120,
+              secure: process.env.NODE_ENV === "production",
             })
             .status(200)
             .json("OTP has been sent to your email");
@@ -228,6 +243,7 @@ export const verifyResetPasswordOTP = async (req, res, next) => {
         .cookie("reset_password_token", confirm_password_token, {
           httpOnly: true,
           expiresIn: 300,
+          secure: process.env.NODE_ENV === "production",
         })
         .status(200)
         .json("OTP is verified");
