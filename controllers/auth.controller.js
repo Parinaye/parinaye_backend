@@ -80,7 +80,7 @@ export const signInGoogle = async (req, res, next) => {
         moment(new Date()).format("YYYYMMDDHHmmss");
       const hashedPassword = bcryptjs.hashSync(
         generatedPassword,
-        process.env.BYCRYPT_SALT
+        parseInt(process.env.BYCRYPT_SALT)
       );
       const updatedUsername =
         username.split(" ").join("_") +
