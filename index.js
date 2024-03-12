@@ -5,6 +5,7 @@ import authRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/user.route.js";
 import profileRouter from "./routes/profile.routes.js";
+import cors from "cors";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ mongoose
   });
 
 const app = express();
+app.use(cors());
 
 app.use(express.json()) // by default json is not allowed to be send in request unless specified here
 app.use(cookieParser());
