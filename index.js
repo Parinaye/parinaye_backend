@@ -19,10 +19,7 @@ mongoose
   });
 
 const app = express();
-app.use(cors({
-  preflightContinue: true,
-  credentials: true,
-}));
+app.use(cors());
 
 app.use(express.json()) // by default json is not allowed to be send in request unless specified here
 app.use(cookieParser());
