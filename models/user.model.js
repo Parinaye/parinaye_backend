@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       match: [
-        /^[a-zA-Z0-9_]$/, 
+        /[a-zA-Z0-9_]/, 
         "Username must contain only letters, numbers and underscores.",
       ],
     },
