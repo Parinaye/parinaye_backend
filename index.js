@@ -19,7 +19,7 @@ mongoose
   });
 
 const app = express();
-app.use(cors({credentials: "include",}));
+app.use(cors({redentials: true ,}));
 
 app.use(express.json()) // by default json is not allowed to be send in request unless specified here
 app.use(cookieParser());
