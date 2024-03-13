@@ -19,7 +19,14 @@ mongoose
   });
 
 const app = express();
-app.use(cors({ credentials: true, origin: true }));
+app.use(
+  cors({
+    credentials: true,
+    origin:["http://localhost:3000","https://parinaye-frontend.vercel.app","https://parinay.com",],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json()); // by default json is not allowed to be send in request unless specified here
 app.use(cookieParser());
@@ -28,13 +35,13 @@ app.listen(3000, () => {
   console.log("Api running on 3000 ! ");
 });
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow specified HTTP methods
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specified headers
-  res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies) to be sent in cross-origin requests
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
+//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow specified HTTP methods
+//   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specified headers
+//   res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies) to be sent in cross-origin requests
+//   next();
+// });
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
