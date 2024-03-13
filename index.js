@@ -28,7 +28,7 @@ app.use(
       "https://parinaye.com",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "credentials"],
   })
 );
 
