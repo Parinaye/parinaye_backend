@@ -28,6 +28,14 @@ app.listen(3000, () => {
   console.log("Api running on 3000 ! ");
 });
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow specified HTTP methods
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specified headers
+  res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies) to be sent in cross-origin requests
+  next();
+});
+
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/profile", profileRouter);
