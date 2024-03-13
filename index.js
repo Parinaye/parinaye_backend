@@ -23,9 +23,9 @@ app.use(
   cors({
     credentials: true,
     origin: [
-      "http://localhost:3000/",
-      "https://parinaye-frontend.vercel.app/",
-      "https://parinaye.com/",
+      "http://localhost:3000",
+      "https://parinaye-frontend.vercel.app",
+      "https://parinaye.com",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
