@@ -55,7 +55,9 @@ export const signIn = async (req, res, next) => {
     const { password: passwordFromUser, ...restOfUser } = validUser._doc;
     res
       .cookie("access_token", token, {
-        expiresIn: 3600})
+        expiresIn: 3600,
+        domain: "*",
+      })
       .status(200)
       .json({ ...restOfUser });
   } catch (error) {
