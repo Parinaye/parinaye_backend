@@ -78,7 +78,7 @@ export const signInGoogle = async (req, res, next) => {
           httpOnly: true,
           expiresIn: 3600,
           secure: process.env.NODE_ENV === "production",
-          domain: process.env.NODE_ENV === "production" ? "parinaye-frontend-two.vercel.app" : "localhost",
+          domain: "*",
         })
         .status(200)
         .json({ ...restOfUser });
@@ -111,12 +111,12 @@ export const signInGoogle = async (req, res, next) => {
       });
       const { password: passwordFromUser, ...restOfUser } = newUser._doc;
       res
-        .cookie("access_token", token, {
-          httpOnly: true,
-          expiresIn: 3600,
-          secure: process.env.NODE_ENV === "production",
-          domain: process.env.NODE_ENV === "production" ? "parinaye-frontend-two.vercel.app" : "localhost",
-        })
+      .cookie("access_token", token, {
+        httpOnly: true,
+        expiresIn: 3600,
+        secure: process.env.NODE_ENV === "production",
+        domain: "*",
+      })
         .status(200)
         .json({ ...restOfUser });
     }
