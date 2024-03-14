@@ -58,6 +58,7 @@ export const signIn = async (req, res, next) => {
         httpOnly: true,
         expiresIn: 3600,
         secure: process.env.NODE_ENV === "production",
+        domain: process.env.NODE_ENV === "production" ? "parinaye-frontend-two.vercel.app" : "localhost",
       })
       .status(200)
       .json({ ...restOfUser });
@@ -81,6 +82,7 @@ export const signInGoogle = async (req, res, next) => {
           httpOnly: true,
           expiresIn: 3600,
           secure: process.env.NODE_ENV === "production",
+          domain: process.env.NODE_ENV === "production" ? "parinaye-frontend-two.vercel.app" : "localhost",
         })
         .status(200)
         .json({ ...restOfUser });
@@ -117,6 +119,7 @@ export const signInGoogle = async (req, res, next) => {
           httpOnly: true,
           expiresIn: 3600,
           secure: process.env.NODE_ENV === "production",
+          domain: process.env.NODE_ENV === "production" ? "parinaye-frontend-two.vercel.app" : "localhost",
         })
         .status(200)
         .json({ ...restOfUser });
@@ -201,6 +204,7 @@ export const sendResetPasswordOTP = async (req, res, next) => {
               httpOnly: true,
               expiresIn: 120,
               secure: process.env.NODE_ENV === "production",
+              domain: process.env.NODE_ENV === "production" ? "parinaye-frontend-two.vercel.app" : "localhost",
             })
             .status(200)
             .json("OTP has been sent to your email");
@@ -244,6 +248,7 @@ export const verifyResetPasswordOTP = async (req, res, next) => {
           httpOnly: true,
           expiresIn: 300,
           secure: process.env.NODE_ENV === "production",
+          domain: process.env.NODE_ENV === "production" ? "parinaye-frontend-two.vercel.app" : "localhost",
         })
         .status(200)
         .json("OTP is verified");
