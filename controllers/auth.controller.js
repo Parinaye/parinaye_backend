@@ -56,7 +56,7 @@ export const signIn = async (req, res, next) => {
     res
       .cookie("access_token", token, {
         expiresIn: 3600,
-        domain: "https://parinaye.vayuteja.co.in/",
+        domain: "parinaye.vayuteja.co.in"
       })
       .status(200)
       .json({ ...restOfUser });
@@ -80,7 +80,7 @@ export const signInGoogle = async (req, res, next) => {
           httpOnly: true,
           expiresIn: 3600,
           secure: process.env.NODE_ENV === "production",
-          domain: "https://parinaye.vayuteja.co.in/",
+          domain: "parinaye.vayuteja.co.in"
         })
         .status(200)
         .json({ ...restOfUser });
@@ -117,7 +117,7 @@ export const signInGoogle = async (req, res, next) => {
         httpOnly: true,
         expiresIn: 3600,
         secure: process.env.NODE_ENV === "production",
-        domain: "https://parinaye.vayuteja.co.in/",
+        domain: "parinaye.vayuteja.co.in"
       })
         .status(200)
         .json({ ...restOfUser });
@@ -202,7 +202,7 @@ export const sendResetPasswordOTP = async (req, res, next) => {
               httpOnly: true,
               expiresIn: 120,
               secure: process.env.NODE_ENV === "production",
-              domain: "https://parinaye.vayuteja.co.in/",
+              domain: "parinaye.vayuteja.co.in"
             })
             .status(200)
             .json("OTP has been sent to your email");
@@ -246,7 +246,7 @@ export const verifyResetPasswordOTP = async (req, res, next) => {
           httpOnly: true,
           expiresIn: 300,
           secure: process.env.NODE_ENV === "production",
-          domain: "https://parinaye.vayuteja.co.in/",
+          domain: "parinaye.vayuteja.co.in"
         })
         .status(200)
         .json("OTP is verified");
