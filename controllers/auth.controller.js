@@ -55,11 +55,7 @@ export const signIn = async (req, res, next) => {
     const { password: passwordFromUser, ...restOfUser } = validUser._doc;
     res
       .cookie("access_token", token, {
-        httpOnly: true,
-        expiresIn: 3600,
-        secure: process.env.NODE_ENV === "production",
-        domain: process.env.NODE_ENV === "production" ? "parinaye-frontend-two.vercel.app" : "localhost",
-      })
+        expiresIn: 3600})
       .status(200)
       .json({ ...restOfUser });
   } catch (error) {
