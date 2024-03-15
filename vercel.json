@@ -14,8 +14,9 @@
       "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
       "headers": {
         "Access-Control-Allow-Origin": "https://parinaye-frontend-two.vercel.app",
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Credentials"
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Credentials",
+        "access-control-expose-headers": "set-cookie"
       }
     }
   ]
