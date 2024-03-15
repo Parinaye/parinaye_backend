@@ -22,7 +22,12 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: "*",
+    origin: [
+      "http://localhost:3000",
+      "https://parinaye-frontend.vercel.app",
+      "https://parinaye.com",
+      "https://parinaye.vayuteja.co.in"
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "credentials"],
   })
