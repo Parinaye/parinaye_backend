@@ -57,7 +57,9 @@ export const signIn = async (req, res, next) => {
       .cookie("access_token", token, {
         path: '/', // Set the path for which the cookie is valid
         maxAge: 3600000, // Set the maximum age of the cookie in milliseconds (1 hour in this example)
-        sameSite: 'None' // Allow cookie to be sent in cross-site requests
+        sameSite: 'None', // Allow cookie to be sent in cross-site requests
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
       })
       .status(200)
       .json({ ...restOfUser });
@@ -80,8 +82,9 @@ export const signInGoogle = async (req, res, next) => {
         .cookie("access_token", token, {
           httpOnly: true,
           expiresIn: 3600,
+          sameSite: 'None', // Allow cookie to be sent in cross-site requests
           secure: process.env.NODE_ENV === "production",
-          domain: "parinaye.vayuteja.co.in"
+          httpOnly: true,
         })
         .status(200)
         .json({ ...restOfUser });
