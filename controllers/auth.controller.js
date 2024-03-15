@@ -84,7 +84,6 @@ export const signInGoogle = async (req, res, next) => {
           expiresIn: 3600,
           sameSite: 'None', // Allow cookie to be sent in cross-site requests
           secure: process.env.NODE_ENV === "production",
-          httpOnly: true,
         })
         .status(200)
         .json({ ...restOfUser });
@@ -120,8 +119,8 @@ export const signInGoogle = async (req, res, next) => {
       .cookie("access_token", token, {
         httpOnly: true,
         expiresIn: 3600,
+        sameSite: 'None', // Allow cookie to be sent in cross-site requests
         secure: process.env.NODE_ENV === "production",
-        domain: "parinaye.vayuteja.co.in"
       })
         .status(200)
         .json({ ...restOfUser });
@@ -205,8 +204,8 @@ export const sendResetPasswordOTP = async (req, res, next) => {
             .cookie("reset_password_token", reset_password_token, {
               httpOnly: true,
               expiresIn: 120,
+              sameSite: 'None', // Allow cookie to be sent in cross-site requests
               secure: process.env.NODE_ENV === "production",
-              domain: "parinaye.vayuteja.co.in"
             })
             .status(200)
             .json("OTP has been sent to your email");
@@ -249,8 +248,8 @@ export const verifyResetPasswordOTP = async (req, res, next) => {
         .cookie("reset_password_token", confirm_password_token, {
           httpOnly: true,
           expiresIn: 300,
+          sameSite: 'None', // Allow cookie to be sent in cross-site requests
           secure: process.env.NODE_ENV === "production",
-          domain: "parinaye.vayuteja.co.in"
         })
         .status(200)
         .json("OTP is verified");
