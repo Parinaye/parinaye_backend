@@ -57,8 +57,6 @@ export const signIn = async (req, res, next) => {
       .cookie("access_token", token, {
         domain: 'parinaye.vayuteja.co.in', // Set the domain of the cookie
         path: '/', // Set the path for which the cookie is valid
-        httpOnly: true, // Restrict cookie access to HTTP requests only
-        secure: true, // Ensure cookie is sent only over HTTPS connections
         maxAge: 3600000, // Set the maximum age of the cookie in milliseconds (1 hour in this example)
         sameSite: 'None' // Allow cookie to be sent in cross-site requests
       })
