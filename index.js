@@ -26,7 +26,8 @@ app.use(
       "http://localhost:3000",
       "https://parinaye-frontend.vercel.app",
       "https://parinaye.com",
-      "https://parinaye.vayuteja.co.in"
+      "https://parinaye.vayuteja.co.in",
+      "https://parinaye-frontend.onrender.com",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "credentials"],
