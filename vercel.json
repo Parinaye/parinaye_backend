@@ -15,8 +15,8 @@
       "headers": {
         "Access-Control-Allow-Origin": "https://parinaye.vayuteja.co.in",
         "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Credentials",
-        "access-control-expose-headers": "set-cookie"
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, credentials",
+        "access-control-expose-headers": "Set-Cookie"
       }
     }
   ]
