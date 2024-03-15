@@ -55,7 +55,6 @@ export const signIn = async (req, res, next) => {
     const { password: passwordFromUser, ...restOfUser } = validUser._doc;
     res
       .cookie("access_token", token, {
-        domain: 'parinaye.vayuteja.co.in', // Set the domain of the cookie
         path: '/', // Set the path for which the cookie is valid
         maxAge: 3600000, // Set the maximum age of the cookie in milliseconds (1 hour in this example)
         sameSite: 'None' // Allow cookie to be sent in cross-site requests
