@@ -29,7 +29,7 @@ app.use(
       "https://parinaye.vayuteja.co.in"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization", "Credentials"],
+    allowedHeaders: ["Content-Type", "Authorization", "credentials"],
   })
 );
 
