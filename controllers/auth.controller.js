@@ -55,7 +55,7 @@ export const signIn = async (req, res, next) => {
     restOfUser.token = token;
     res
       .cookie("access_token", token, {
-        path: "/", // Set the path for which the cookie is valid
+        path: '/', // Set the path for which the cookie is valid
         maxAge: 3600000, // Set the maximum age of the cookie in milliseconds (1 hour in this example)
         sameSite: "None", // Allow cookie to be sent in cross-site requests
       })
