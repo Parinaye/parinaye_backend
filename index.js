@@ -27,7 +27,6 @@ app.use(
       "https://parinaye-frontend.vercel.app",
       "https://parinaye.com",
       "https://parinaye.vayuteja.co.in",
-      "https://parinaye-frontend.onrender.com",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "credentials"],
@@ -37,8 +36,8 @@ app.use(
 app.use(express.json()); // by default json is not allowed to be send in request unless specified here
 app.use(cookieParser());
 
-app.listen(3000, () => {
-  console.log("Api running on 3000 ! ");
+app.listen(8000, () => {
+  console.log("Api running on 8000 ! ");
 });
 
 // app.use((req, res, next) => {

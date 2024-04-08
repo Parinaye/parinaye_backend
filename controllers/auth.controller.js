@@ -44,7 +44,6 @@ export const signIn = async (req, res, next) => {
       password,
       validUser._doc.password
     );
-    console.log(!validPassword);
     if (!validPassword) {
       next(errorHandler("401", "Invalid credentials!! Unable to Login"));
       return;
@@ -53,13 +52,12 @@ export const signIn = async (req, res, next) => {
       expiresIn: 3600,
     });
     const { password: passwordFromUser, ...restOfUser } = validUser._doc;
+    restOfUser.token = token;
     res
       .cookie("access_token", token, {
         path: '/', // Set the path for which the cookie is valid
         maxAge: 3600000, // Set the maximum age of the cookie in milliseconds (1 hour in this example)
         sameSite: 'None', // Allow cookie to be sent in cross-site requests
-        secure: process.env.NODE_ENV === "production",
-        httpOnly: true,
       })
       .status(200)
       .json({ ...restOfUser });
