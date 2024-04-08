@@ -31,11 +31,15 @@ export const verifyToken = async (req, res, next) => {
 };
 
 export const verifyResetPasswordToken = async (req, res, next) => {
-  const token = req.cookies.reset_password_token;
+  let token = req.cookies.reset_password_token;
   if (!token)
-    return res
-      .status(401)
-      .json({ success: false, message: "Access denied !!, provide token." });
+    if (req.headers.authorization) {
+      token = req.headers.authorization.split(" ")[1];
+    } else {
+      return res
+        .status(401)
+        .json({ success: false, message: "Access denied !!, provide token." });
+    }
   try {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       console.log(err);

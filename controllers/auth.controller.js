@@ -55,9 +55,9 @@ export const signIn = async (req, res, next) => {
     restOfUser.token = token;
     res
       .cookie("access_token", token, {
-        path: '/', // Set the path for which the cookie is valid
+        path: "/", // Set the path for which the cookie is valid
         maxAge: 3600000, // Set the maximum age of the cookie in milliseconds (1 hour in this example)
-        sameSite: 'None', // Allow cookie to be sent in cross-site requests
+        sameSite: "None", // Allow cookie to be sent in cross-site requests
       })
       .status(200)
       .json({ ...restOfUser });
@@ -76,11 +76,12 @@ export const signInGoogle = async (req, res, next) => {
         expiresIn: 3600,
       });
       const { password: passwordFromUser, ...restOfUser } = validUser._doc;
+      restOfUser.token = token;
       res
         .cookie("access_token", token, {
           httpOnly: true,
           expiresIn: 3600,
-          sameSite: 'None', // Allow cookie to be sent in cross-site requests
+          sameSite: "None", // Allow cookie to be sent in cross-site requests
           secure: process.env.NODE_ENV === "production",
         })
         .status(200)
@@ -113,13 +114,14 @@ export const signInGoogle = async (req, res, next) => {
         expiresIn: 3600,
       });
       const { password: passwordFromUser, ...restOfUser } = newUser._doc;
+      restOfUser.token = token;
       res
-      .cookie("access_token", token, {
-        httpOnly: true,
-        expiresIn: 3600,
-        sameSite: 'None', // Allow cookie to be sent in cross-site requests
-        secure: process.env.NODE_ENV === "production",
-      })
+        .cookie("access_token", token, {
+          httpOnly: true,
+          expiresIn: 3600,
+          sameSite: "None", // Allow cookie to be sent in cross-site requests
+          secure: process.env.NODE_ENV === "production",
+        })
         .status(200)
         .json({ ...restOfUser });
     }
@@ -202,11 +204,14 @@ export const sendResetPasswordOTP = async (req, res, next) => {
             .cookie("reset_password_token", reset_password_token, {
               httpOnly: true,
               expiresIn: 120,
-              sameSite: 'None', // Allow cookie to be sent in cross-site requests
+              sameSite: "None", // Allow cookie to be sent in cross-site requests
               secure: process.env.NODE_ENV === "production",
             })
             .status(200)
-            .json("OTP has been sent to your email");
+            .json({
+              reset_password_token,
+              message: "OTP has been sent to your email",
+            });
         }
       });
     }
@@ -246,11 +251,14 @@ export const verifyResetPasswordOTP = async (req, res, next) => {
         .cookie("reset_password_token", confirm_password_token, {
           httpOnly: true,
           expiresIn: 300,
-          sameSite: 'None', // Allow cookie to be sent in cross-site requests
+          sameSite: "None", // Allow cookie to be sent in cross-site requests
           secure: process.env.NODE_ENV === "production",
         })
         .status(200)
-        .json("OTP is verified");
+        .json({
+          reset_password_token: confirm_password_token,
+          message: "OTP is verified",
+        });
     }
   } catch (error) {
     next(errorHandler(500, error.message || "Failed to verify OTP"));

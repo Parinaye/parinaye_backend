@@ -33,6 +33,7 @@ const profileSchema = new mongoose.Schema(
     },
     email: {
       type: String,
+      unique: true,
       required: true,
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -41,6 +42,7 @@ const profileSchema = new mongoose.Schema(
     },
     phoneNumber: {
       type: String,
+      unique: true,
       required: true,
       match: [/^(\+\d{1,3}[- ]?)?\d{10}$/, "Please enter a valid phone number"],
     },
@@ -119,8 +121,6 @@ const profileSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
-profileSchema.index({ email: "text", phoneNumber: "text" }, { unique: true });
 
 const Profile = mongoose.model("Profile", profileSchema);
 
