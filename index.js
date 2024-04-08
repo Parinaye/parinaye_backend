@@ -10,7 +10,10 @@ import cors from "cors";
 dotenv.config();
 
 mongoose
-  .connect(process.env.MONGODB_URL)
+  .connect(process.env.MONGODB_URL,
+    {
+      dbName: "parinaye",
+    })
   .then(() => {
     console.log("DB connected");
   })
