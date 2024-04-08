@@ -8,6 +8,8 @@ import {
   PROFESSION_ENUM,
   RELIGION_ENUM,
   CASTE_ENUM,
+  VERIFIED_ENUM,
+  GOTRAM_ENUM,
 } from "../config/enums.config.js";
 
 const heightSchema = new mongoose.Schema({
@@ -65,6 +67,16 @@ const profileSchema = new mongoose.Schema(
         });
       }),
     },
+    swagotram: {
+      type: String,
+      required: true,
+      enum: GOTRAM_ENUM,
+    },
+    maternalGotram: {
+      type: String,
+      required: true,
+      enum: GOTRAM_ENUM,
+    },
     dob: {
       type: Date,
       required: true,
@@ -102,6 +114,16 @@ const profileSchema = new mongoose.Schema(
     bio: {
       type: String,
       required: true,
+    },
+    seekingBio: {
+      type: String,
+      required: true,
+    },
+    verified: {
+      type: String,
+      required: true,
+      default: "not verified",
+      enum: VERIFIED_ENUM,
     },
     profilePictures: {
       type: [
