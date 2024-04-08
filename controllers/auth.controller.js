@@ -79,6 +79,7 @@ export const signInGoogle = async (req, res, next) => {
       restOfUser.token = token;
       res
         .cookie("access_token", token, {
+          path: '/',
           httpOnly: true,
           expiresIn: 3600,
           sameSite: "None", // Allow cookie to be sent in cross-site requests
@@ -117,6 +118,7 @@ export const signInGoogle = async (req, res, next) => {
       restOfUser.token = token;
       res
         .cookie("access_token", token, {
+          path: '/',
           httpOnly: true,
           expiresIn: 3600,
           sameSite: "None", // Allow cookie to be sent in cross-site requests
