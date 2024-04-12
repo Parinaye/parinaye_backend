@@ -23,6 +23,42 @@ const heightSchema = new mongoose.Schema({
   },
 });
 
+const addressSchema = new mongoose.Schema({
+  addressLine1: {
+    type: String,
+    required: true,
+    default: " ",
+  },
+  addressLine2: {
+    type: String,
+    default: " ",
+  },
+  city: {
+    type: String,
+    required: true,
+    default: null,
+    match: [/^[a-zA-Z]+$/, "Please enter a valid city"],
+  },
+  state: {
+    type: String,
+    required: true,
+    default: null,
+    match: [/^[a-zA-Z]+$/, "Please enter a valid state"],
+  },
+  country: {
+    type: String,
+    required: true,
+    default: null,
+    match: [/^[a-zA-Z]+$/, "Please enter a valid country"],
+  },
+  pincode: {
+    type: String,
+    required: true,
+    default: null,
+    match: [/^\d{6}$/, "Please enter a valid pincode"],
+  },
+},{ _id: false });
+
 const profileSchema = new mongoose.Schema(
   {
     firstName: {
@@ -47,6 +83,14 @@ const profileSchema = new mongoose.Schema(
       unique: true,
       required: true,
       match: [/^(\+\d{1,3}[- ]?)?\d{10}$/, "Please enter a valid phone number"],
+    },
+    fatherName: {
+      type: String,
+      required: true,
+    },
+    motherName: {
+      type: String,
+      required: true,
     },
     gender: {
       type: String,
@@ -111,6 +155,11 @@ const profileSchema = new mongoose.Schema(
         enum: ASSETS_ENUM,
       },
     ],
+    address: {
+      type: addressSchema,
+      required: true,
+      default: () => ({}),
+    },
     bio: {
       type: String,
       required: true,
@@ -141,6 +190,7 @@ const profileSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    minimize: false,
   }
 );
 
