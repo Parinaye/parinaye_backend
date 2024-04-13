@@ -26,8 +26,8 @@ export const INCOME_ENUM = [
 ];
 export const GENDER_ENUM = ["male", "female"];
 export const RELIGION_ENUM = ["hindu", "christian", "muslim", "other"];
-export const VERIFIED_ENUM = [
-  "not verified",
+export const VERIFICATION_STATUS_ENUM = [
+  "unverified",
   "pending",
   "verified",
   "visited",

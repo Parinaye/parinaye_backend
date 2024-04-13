@@ -8,8 +8,8 @@ import {
   PROFESSION_ENUM,
   RELIGION_ENUM,
   CASTE_ENUM,
-  VERIFIED_ENUM,
   GOTRAM_ENUM,
+  VERIFICATION_STATUS_ENUM,
 } from "../config/enums.config.js";
 
 const heightSchema = new mongoose.Schema({
@@ -168,11 +168,10 @@ const profileSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    verified: {
+    verificationStatus: {
       type: String,
-      required: true,
-      default: "not verified",
-      enum: VERIFIED_ENUM,
+      default: "unverified",
+      enum: VERIFICATION_STATUS_ENUM,
     },
     profilePictures: {
       type: [
