@@ -37,19 +37,16 @@ const addressSchema = new mongoose.Schema({
     type: String,
     required: true,
     default: null,
-    match: [/^[a-zA-Z]+$/, "Please enter a valid city"],
   },
   state: {
     type: String,
     required: true,
     default: null,
-    match: [/^[a-zA-Z]+$/, "Please enter a valid state"],
   },
   country: {
     type: String,
     required: true,
     default: null,
-    match: [/^[a-zA-Z]+$/, "Please enter a valid country"],
   },
   pincode: {
     type: String,
