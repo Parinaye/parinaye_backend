@@ -156,7 +156,7 @@ export const GOTRAM_ENUM = [
   "monukula",
   "moruka",
   "morusa",
-  "morkkalakula",
+  "murkula",
   "mathtikula",
   "mathanakula",
   "mathyasakula",
