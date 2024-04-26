@@ -55,7 +55,7 @@ export const signIn = async (req, res, next) => {
     restOfUser.token = token;
     res
       .cookie("access_token", token, {
-        path: '/', // Set the path for which the cookie is valid
+        path: "/", // Set the path for which the cookie is valid
         maxAge: 3600000, // Set the maximum age of the cookie in milliseconds (1 hour in this example)
         sameSite: "None", // Allow cookie to be sent in cross-site requests
       })
@@ -79,7 +79,7 @@ export const signInGoogle = async (req, res, next) => {
       restOfUser.token = token;
       res
         .cookie("access_token", token, {
-          path: '/',
+          path: "/",
           httpOnly: true,
           expiresIn: 3600,
           sameSite: "None", // Allow cookie to be sent in cross-site requests
@@ -118,7 +118,7 @@ export const signInGoogle = async (req, res, next) => {
       restOfUser.token = token;
       res
         .cookie("access_token", token, {
-          path: '/',
+          path: "/",
           httpOnly: true,
           expiresIn: 3600,
           sameSite: "None", // Allow cookie to be sent in cross-site requests
@@ -192,8 +192,21 @@ export const sendResetPasswordOTP = async (req, res, next) => {
       const mailOptions = {
         from: process.env.EMAIL,
         to: validUser._doc.email,
-        subject: "Password Reset OTP",
-        text: `Your OTP to reset password the is ${otp}`,
+        subject: "Parinaye : Password Reset OTP",
+        html: `
+        <html>
+        <head>
+            <title>Password Reset OTP</title>
+        </head>
+        <body>
+            <p>Dear ${validUser._doc.username},</p>
+            <p>Your OTP to reset password is: <strong>${otp}</strong></p>
+            <p>This OTP is valid for a limited time. Do not share this code with anyone. If you did not request a password reset, please ignore this email.</p>
+            <p>Sincerely,</p>
+            <p>The Parinaye Team</p>
+        </body>
+        </html>
+    `,
       };
 
       transporter.sendMail(mailOptions, async function (error, info) {

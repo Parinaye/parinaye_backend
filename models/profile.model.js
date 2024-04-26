@@ -10,6 +10,8 @@ import {
   CASTE_ENUM,
   GOTRAM_ENUM,
   VERIFICATION_STATUS_ENUM,
+  RAASI_ENUM,
+  NAKSHATRAM_ENUM,
 } from "../config/enums.config.js";
 
 const heightSchema = new mongoose.Schema({
@@ -23,38 +25,56 @@ const heightSchema = new mongoose.Schema({
   },
 });
 
-const addressSchema = new mongoose.Schema({
-  addressLine1: {
-    type: String,
+const tobSchema = new mongoose.Schema({
+  hour: {
+    type: Number,
     required: true,
-    default: " ",
   },
-  addressLine2: {
-    type: String,
-    default: " ",
-  },
-  city: {
-    type: String,
+  min: {
+    type: Number,
     required: true,
-    default: null,
   },
-  state: {
+  ampm: {
     type: String,
-    required: true,
-    default: null,
+    enum: ["am", "pm"],
   },
-  country: {
-    type: String,
-    required: true,
-    default: null,
+});
+
+const addressSchema = new mongoose.Schema(
+  {
+    addressLine1: {
+      type: String,
+      required: true,
+      default: " ",
+    },
+    addressLine2: {
+      type: String,
+      default: " ",
+    },
+    city: {
+      type: String,
+      required: true,
+      default: null,
+    },
+    state: {
+      type: String,
+      required: true,
+      default: null,
+    },
+    country: {
+      type: String,
+      required: true,
+      default: null,
+    },
+    pincode: {
+      type: String,
+      required: true,
+      default: null,
+      match: [/^\d{6}$/, "Please enter a valid pincode"],
+    },
   },
-  pincode: {
-    type: String,
-    required: true,
-    default: null,
-    match: [/^\d{6}$/, "Please enter a valid pincode"],
-  },
-},{ _id: false });
+  { _id: false }
+);
 
 const profileSchema = new mongoose.Schema(
   {
@@ -68,8 +88,6 @@ const profileSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      unique: true,
-      required: true,
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
         "Please enter a valid email",
@@ -121,6 +139,25 @@ const profileSchema = new mongoose.Schema(
     dob: {
       type: Date,
       required: true,
+    },
+    tob: {
+      type: tobSchema,
+      default: () => ({}),
+    },
+    raasi: {
+      type: String,
+      enum: RAASI_ENUM,
+    },
+    nakshatram: {
+      type: String,
+      enum: NAKSHATRAM_ENUM,
+    },
+    paadam: {
+      type: Number,
+      enum: [1, 2, 3, 4],
+    },
+    sibblings: {
+      type: Number,
     },
     height: {
       type: heightSchema,
@@ -177,7 +214,10 @@ const profileSchema = new mongoose.Schema(
           required: true,
         },
       ],
-      validate: [v => Array.isArray(v) && v.length > 0 , "atleast one profile picture is required"]
+      validate: [
+        (v) => Array.isArray(v) && v.length > 0,
+        "atleast one profile picture is required",
+      ],
     },
     userRef: {
       type: mongoose.Schema.Types.ObjectId,

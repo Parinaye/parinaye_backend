@@ -88,6 +88,11 @@ export const getProfiles = async (req, res, next) => {
         $in: JSON.parse(req.query.maritalStatus),
       };
     }
+    if (req.query.gender) {
+      match.gender = {
+        $in: JSON.parse(req.query.gender),
+      };
+    }
     if(req.query.verificationStatus){
       match.verificationStatus = {
         $in: JSON.parse(req.query.verificationStatus),
