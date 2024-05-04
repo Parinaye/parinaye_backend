@@ -29,6 +29,7 @@ app.use(
       "http://localhost:3000",
       "https://parinaye-frontend.vercel.app",
       "https://parinaye.com",
+      "https://api.parinaye.com",
       "https://parinaye.vayuteja.co.in",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
