@@ -192,7 +192,7 @@ export const GOTRAM_ENUM = [
   "pranaseelakula",
   "pranuseelakula",
   "prana seela kula",
-  "pampaalla",
+  "papaala",
   "kanapakula",
   "kantakula",
   "kantaasukula",
