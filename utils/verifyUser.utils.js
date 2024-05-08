@@ -17,7 +17,7 @@ export const verifyToken = async (req, res, next) => {
       console.log(err);
       if (err)
         return next(
-          errorHandler(403, "Invalid token!! , please Re-Authenticate. ")
+          errorHandler(403, "Please Re-Authenticate. !! ")
         );
       req.user = decoded;
       next();
