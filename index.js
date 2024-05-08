@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import userRouter from "./routes/user.route.js";
 import profileRouter from "./routes/profile.routes.js";
 import cors from "cors";
+import configRouter from "./routes/config.routes.js";
 
 dotenv.config();
 
@@ -54,6 +55,7 @@ app.listen(8000, () => {
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/profile", profileRouter);
+app.use("/api/config", configRouter)
 
 /* !!! the order of middleware matters */
 
