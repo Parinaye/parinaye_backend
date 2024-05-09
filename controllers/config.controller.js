@@ -27,8 +27,6 @@ export const updateConfig = async (req, res, next) => {
 
 export const getConfig = async (req, res, next) => {
   try {
-    const user = await User.findById(req.user.id);
-    if ((user && user.role === "admin") || req.params.id === req.user.id) {
       if (req.query.env) {
         const getConfig = await Config.findOne({ env: req.query.env });
         if (getConfig == null) {
@@ -38,9 +36,6 @@ export const getConfig = async (req, res, next) => {
       } else {
         next(errorHandler(500, `'env' Query param is required`));
       }
-    } else {
-      next(errorHandler(401, "Unauthorized! only admin can view config"));
-    }
   } catch (err) {
     console.log(err);
     next(errorHandler(500, "Failed to get Config"));

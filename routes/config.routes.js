@@ -7,6 +7,6 @@ const configRouter = Router();
 
 configRouter.put("/update", verifyToken, updateConfig);
 
-configRouter.get("/", verifyToken, getConfig)
+configRouter.get("/", getConfig)
 
 export default configRouter;
