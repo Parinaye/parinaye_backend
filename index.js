@@ -28,6 +28,7 @@ app.use(
     credentials: true,
     origin: [
       "http://localhost:3000",
+      "http://localhost",
       "https://parinaye-frontend.vercel.app",
       "https://parinaye.com",
       "https://www.parinaye.com",

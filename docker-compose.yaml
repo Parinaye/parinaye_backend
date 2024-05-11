@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  parinaye_be:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "8000:8000"
+    environment:
+      - EMAIL=parinaye.matrimony@gmail.com
+    networks:
+      - be_app_net
+
+networks:
+  be_app_net:
+    driver: bridge
