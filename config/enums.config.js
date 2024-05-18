@@ -47,6 +47,7 @@ export const GOTRAM_ENUM = [
   "elisishtakula",
   "arisetlakula",
   "harisishtakula",
+  "PUSHPALAKULA",
   "yanasakula",
   "yaanasakakula",
   "yaanasabikula",
