@@ -31,6 +31,7 @@ app.use(
       "http://localhost",
       "https://parinaye-frontend.vercel.app",
       "https://parinaye.com",
+      "http://34.28.138.152",
       "https://www.parinaye.com",
       "https://parinaye.vayuteja.co.in",
     ],
