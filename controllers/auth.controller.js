@@ -19,7 +19,11 @@ export const signUp = async (req, res, next) => {
   );
 
   try {
-    const newUser = new User({ username, email, password: hashedPassword });
+    const newUser = new User({
+      username: username.toLowercase(),
+      email: email.toLowercase(),
+      password: hashedPassword,
+    });
     await newUser.save();
 
     res.status(201).json({
@@ -35,7 +39,9 @@ export const signIn = async (req, res, next) => {
   console.log(req.body);
   const { username, password } = req.body;
   try {
-    const validUser = await User.findOne({ username });
+    const validUser = await User.findOne({
+      username: { $regex: `^${username}$`, $options: "i" },
+    });
     if (!validUser) {
       next(errorHandler(404, "User not found"));
       return;
@@ -70,7 +76,9 @@ export const signInGoogle = async (req, res, next) => {
   try {
     console.log(req.body);
     const { username, email } = req.body;
-    const validUser = await User.findOne({ email });
+    const validUser = await User.findOne({
+      email: { $regex: `^${email}$`, $options: "i" },
+    });
     if (validUser) {
       const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
         expiresIn: 3600,
@@ -153,7 +161,9 @@ export const check_token = async (req, res, next) => {
 export const sendResetPasswordOTP = async (req, res, next) => {
   try {
     const { username } = req.body;
-    const validUser = await User.findOne({ username });
+    const validUser = await User.findOne({
+      username: { $regex: `^${username}$`, $options: "i" },
+    });
     if (!validUser) {
       next(errorHandler(404, "User not found"));
       return;
