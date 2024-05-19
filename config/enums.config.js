@@ -1,3 +1,4 @@
+
 export const EDUCATION_ENUM = [
   "undergraduate",
   "graduate",
@@ -355,4 +356,5 @@ export const NAKSHATRAM_ENUM = [
   "uttara bhadrapada",
   "revati",
   "abhijit",
+  "pubba",
 ];
