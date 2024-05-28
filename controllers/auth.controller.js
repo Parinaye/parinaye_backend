@@ -20,8 +20,8 @@ export const signUp = async (req, res, next) => {
 
   try {
     const newUser = new User({
-      username: username.toLowercase(),
-      email: email.toLowercase(),
+      username: username.trim().toLowercase(),
+      email: email.trim().toLowercase(),
       password: hashedPassword,
     });
     await newUser.save();
