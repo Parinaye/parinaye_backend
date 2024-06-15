@@ -1,6 +1,8 @@
 import e from "express";
 import Profile from "../models/profile.model.js";
 import { errorHandler } from "../utils/error.utils.js";
+import moment from "moment";
+import mongoose from "mongoose";
 
 export const createProfile = async (req, res, next) => {
   try {
@@ -42,86 +44,124 @@ export const searchProfiles = async (req, res, next) => {
 
 export const getProfiles = async (req, res, next) => {
   try {
-    let match = {};
-    const filters = req.body.filters;
-    console.log(filters);
 
-    if (req.query.age_gte) {
-      match.age = {
-        $gte: parseInt(req.query.age_gte),
-      };
-    }
-    if (req.query.age_lte) {
-      match.age = {
-        $lte: parseInt(req.query.age_lte),
-      };
-    }
+    let match = {};
+    console.log(req.query);
+
     if (req.query.assets) {
       match.assets = {
-        $all: JSON.parse(req.query.assets),
+        $all: req.query.assets.split(","),
       };
     }
     if (req.query.createdAtGte) {
+
+      console.log(req.query.createdAtGte)
       match.createdAt = {
         ...match.createdAt ,
         $gte: new Date(req.query.createdAtGte),
       };
     }
     if (req.query.createdAtLte) {
+      console.log(req.query.createdAtLte)
       match.createdAt = {
         ...match.createdAt ,
         $lte: new Date(req.query.createdAtLte),
       };
     }
+
+    if(req.query.ageAtGte){
+      const today = moment(); // Get the current moment
+      const pastDate = moment().subtract(parseInt(req.query.ageAtGte), 'years'); // Subtract desired years
+      const pastGteDate = new Date(pastDate)
+      // Subtracting years from full year
+      console.log(pastGteDate)
+      match.dob = {
+        ...match.dob,
+        $gte: pastGteDate
+      }
+    }
+
+    if(req.query.ageAtLte){
+      const today = moment(); // Get the current moment
+
+      const pastDate = moment().subtract(parseInt(req.query.ageAtLte), 'years'); // Subtract desired years
+      const pastLteDate = new Date(pastDate)
+      console.log(pastLteDate)
+      match.dob = {
+        ...match.dob,
+        $lte: pastLteDate
+      }
+    }
+
     if (req.query.profession) {
       match.profession = {
-        $in: JSON.parse(req.query.profession),
+        $in: req.query.profession.split(","),
       };
     }
     if (req.query.education) {
       match.education = {
-        $in: JSON.parse(req.query.education),
+        $in: req.query.education.split(","),
       };
     }
     if (req.query.maritalStatus) {
       match.maritalStatus = {
-        $in: JSON.parse(req.query.maritalStatus),
+        $in: req.query.maritalStatus.split(","),
       };
     }
     if (req.query.gender) {
       match.gender = {
-        $in: JSON.parse(req.query.gender),
+        $in: req.query.gender.split(","),
       };
     }
     if(req.query.verificationStatus){
       match.verificationStatus = {
-        $in: JSON.parse(req.query.verificationStatus),
+        $in: req.query.verificationStatus.split(","),
       };
     }
     if (req.query.religion) {
       match.religion = {
-        $in: JSON.parse(req.query.religion),
+        $in: req.query.religion.split(","),
       };
     }
     if (req.query.caste) {
       match.caste = {
-        $in: JSON.parse(req.query.caste),
+        $in: req.query.caste.split(","),
       };
     }
     if (req.query.state) {
       match.state = {
-        $in: JSON.parse(req.query.state),
+        $in: req.query.state.split(","),
       };
     }
     if (req.query.city) {
       match.city = {
-        $in: JSON.parse(req.query.city),
+        $in: req.query.city.split(","),
       };
     }
     if (req.query.country) {
       match.country = {
-        $in: JSON.parse(req.query.country),
+        $in: req.query.country.split(","),
       };
+    }
+
+    if(req.query.userRef){
+      if (typeof req.query.userRef === 'string' && req.query.userRef.length === 24) {
+        try {
+          match.userRef = {
+            $eq: new mongoose.Types.ObjectId(req.query.userRef)
+          }
+        } catch (error) {
+          return res.status(500).json({ message: 'Invalid ObjectId format for userRef : ' + error });
+        }
+      } else {
+        console.warn("userRef value is not a valid ObjectId format:", req.query.useruserRef);
+      }
+    }
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 9;
+
+    if (page < 1 || limit < 1) {
+      return res.status(400).json({ message: 'Page and limit must be positive integers' });
     }
 
     console.log(match);
@@ -134,9 +174,24 @@ export const getProfiles = async (req, res, next) => {
           createdAt: -1,
         },
       },
+      {
+        $skip: (page - 1) * limit,
+      },
+      {
+        $limit: limit
+      }
+
     ]);
-    // const profiles = await Profile.find({}).sort({createdAt: -1});
-    res.status(200).json(profiles);
+
+    console.log()
+    const totalProfiles = await Profile.countDocuments(match); // Get the total number of documents
+    const totalPages = Math.ceil(totalProfiles / limit);
+    res.status(200).json({
+      profiles,
+      page,
+      totalPages,
+      totalProfiles,
+    });
   } catch (err) {
     console.log(err);
     next(errorHandler(500, err.message || "Failed to create profile"));

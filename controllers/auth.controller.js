@@ -65,9 +65,11 @@ export const signIn = async (req, res, next) => {
         maxAge: 3600000, // Set the maximum age of the cookie in milliseconds (1 hour in this example)
         sameSite: "None", // Allow cookie to be sent in cross-site requests
       })
+    res
       .status(200)
       .json({ ...restOfUser });
   } catch (error) {
+    console.error('Error in signIn:', error); // Debug log
     next(error);
   }
 };
