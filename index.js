@@ -23,22 +23,31 @@ mongoose
   });
 
 const app = express();
-app.use(
-  cors({
-    credentials: true,
-    origin: [
-      "http://localhost:3000",
-      "http://localhost",
-      "https://parinaye-frontend.vercel.app",
-      "https://parinaye.com",
-      "http://34.28.138.152",
-      "https://www.parinaye.com",
-      "https://parinaye.vayuteja.co.in",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization", "credentials"],
-  })
-);
+
+// regular expression to match any URL containing "parinaye"
+const parinayeRegex = /.*parinaye.*/;
+
+const corsOptions = {
+  credentials: true,
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // Allow requests with no origin (like mobile apps or curl requests)
+    if (
+      [
+        "http://localhost:3000",
+        "http://localhost",
+        "http://34.28.138.152",
+      ].indexOf(origin) !== -1 || parinayeRegex.test(origin)
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization", "credentials"],
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json()); // by default json is not allowed to be send in request unless specified here
 app.use(cookieParser());
